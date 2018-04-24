@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner
 * Visto que a empresaRepository foi inicializada com null, na função setup, após a declaração de
 *   empresaRepository, também devemos utilizar ( ? )
 * Outro papel do ( ? ) é, caso a empresaRepository seja null, não será executado o findByCnpj
+* O Kotlin realizada uma verificação e para cada lugar que possa gerado um null pointer, ele obriga a inserir o ( ? )
 * */
 
 @RunWith(SpringRunner::class)
