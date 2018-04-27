@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service
 * - Para identificar uma classe como service, deve-se informar a notação @Service
 * - Após o nome da classe quando declaramos (val empresaRepository : ... ) estamos injetando empresaRepository
 * - O Kotlin recomenda que não seja utilizado o @AutoWired
+* - Devido a implementação do método ter apenas uma linha, após o ( = ) podemos definir em uma única linha
 * */
 
 @Service

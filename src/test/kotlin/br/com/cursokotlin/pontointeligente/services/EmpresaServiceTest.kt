@@ -18,6 +18,9 @@ import org.springframework.test.context.junit4.SpringRunner
 *   empresaRepository, também devemos utilizar ( ? )
 * Outro papel do ( ? ) é, caso a empresaRepository seja null, não será executado o findByCnpj
 * O Kotlin realizada uma verificação e para cada lugar que possa gerado um null pointer, ele obriga a inserir o ( ? )
+* @Before é executado antes de cada teste, método usado para configuração, por convenção chamado ade setup
+* Ao executar esta classe, pode demorar um pouco, pois é criado um contexto para o Spring rodar os testes
+* Para realizar os testes, ele utiliza o o.s.b.a.mongo.embedded.EmbeddedMongo, não está executando a instância real do mongo
 * */
 
 @RunWith(SpringRunner::class)
@@ -35,6 +38,7 @@ class EmpresaServiceTest {
     @Before
     @Throws(Exception::class)
     fun setup() {
+        // Para cada chamada a empresaRepository.findByCnpj, retorne a empresa()
         BDDMockito.given(empresaRepository?.findByCnpj(CNPJ)).willReturn(empresa())
         BDDMockito.given(empresaRepository?.save(empresa())).willReturn(empresa())
     }

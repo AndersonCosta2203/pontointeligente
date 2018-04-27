@@ -1,6 +1,7 @@
 package br.com.cursokotlin.pontointeligente.services
 
 import br.com.cursokotlin.pontointeligente.documents.Funcionario
+import java.util.*
 
 interface FuncionarioService {
 
@@ -10,6 +11,6 @@ interface FuncionarioService {
 
     fun buscarPorEmail(email: String): Funcionario?
 
-    fun buscarPorId(id: String): Funcionario?
+    fun buscarPorId(id: String): Optional<Funcionario>?
 
 }

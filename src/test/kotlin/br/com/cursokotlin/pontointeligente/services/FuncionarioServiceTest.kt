@@ -14,6 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.context.junit4.SpringRunner
+import java.util.*
+
+/*
+* Esta classe de teste foi utilizada baseando nos teste TDD
+* Criar a classe de teste do que deseja testar gerando erros, e gerar a implementação até estar com o resultado correto
+* Deve ser realizado um teste por vez, gerar um teste para cada funcionalidade
+* 1º Como não implementamos ainda o método persistir da classe FuncionarioServiceImpl, o teste irá falhar
+*   FuncionarioServiceImpl.persistir -> kotlin.NotImplementedError: An operation is not implemented: not implemented
+* 2º
+*
+* */
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
@@ -32,9 +43,12 @@ class FuncionarioServiceTest {
     @Before
     @Throws(Exception::class)
     fun setUp() {
+        /* Mockito.any(Funcionario::class.java)), diz que quando chamar o save com qualquer objeto funcionario,
+            deve ser retornado um funcionário
+         */
         BDDMockito.given(funcionarioRepository?.save(Mockito.any(Funcionario::class.java)))
                 .willReturn(funcionario())
-        // BDDMockito.given(funcionarioRepository?.findById(id)).willReturn(funcionario())
+        BDDMockito.given(funcionarioRepository?.findById(id)).willReturn(funcionarioId())
         BDDMockito.given(funcionarioRepository?.findByEmail(email)).willReturn(funcionario())
         BDDMockito.given(funcionarioRepository?.findByCpf(cpf)).willReturn(funcionario())
     }
@@ -47,7 +61,7 @@ class FuncionarioServiceTest {
 
     @Test
     fun testBuscarFuncionarioPorId() {
-        val funcionario: Funcionario? = this.funcionarioService?.buscarPorId(id)
+        val funcionario: Optional<Funcionario>? = this.funcionarioService?.buscarPorId(id)
         Assert.assertNotNull(funcionario)
     }
 
@@ -66,6 +80,10 @@ class FuncionarioServiceTest {
     private fun funcionario(): Funcionario =
             Funcionario("Nome", email, SenhaUtils().gerarBcrypt("123456"),
                     cpf, PerfilEnum.ROLE_USUARIO, id)
+
+    private fun funcionarioId(): Optional<Funcionario> =
+            Optional.of(Funcionario("Nome", email, SenhaUtils().gerarBcrypt("123456"),
+                    cpf, PerfilEnum.ROLE_USUARIO, id))
 
 
 
