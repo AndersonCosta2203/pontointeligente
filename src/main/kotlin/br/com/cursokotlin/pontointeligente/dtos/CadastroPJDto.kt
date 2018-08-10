@@ -1,4 +1,4 @@
-package com.kazale.pontointeligente.dtos
+package br.com.cursokotlin.pontointeligente.dtos
 
 import org.hibernate.validator.constraints.Length
 import org.hibernate.validator.constraints.br.CNPJ

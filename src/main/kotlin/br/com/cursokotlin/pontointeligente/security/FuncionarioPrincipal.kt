@@ -5,6 +5,9 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
+/**
+ * out -> garantir que receba apenas filhos de GrantedAuthority
+ */
 class FuncionarioPrincipal(val funcionario: Funcionario) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {

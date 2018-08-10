@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 *   - var: é uma variável e pode ser modificado o seu valor
 *   - val: é similar a uma constante, o seu estado não pode ser alterado
 * - O operador ( ? ) diz o valor pode ser nulo, evita o null pointer exception
-* - Operador ( data ) representa a crição dos acessores da empresa, semelhante aos getters e setters.
+* - Operador ( data ) representa a criação dos acessores da empresa, semelhante aos getters e setters.
 *   Deixar os campos disponíveis para acesso
 * */
 

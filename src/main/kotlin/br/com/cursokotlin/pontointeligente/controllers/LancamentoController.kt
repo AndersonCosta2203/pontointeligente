@@ -2,11 +2,11 @@ package br.com.cursokotlin.pontointeligente.controllers
 
 import br.com.cursokotlin.pontointeligente.documents.Funcionario
 import br.com.cursokotlin.pontointeligente.documents.Lancamento
+import br.com.cursokotlin.pontointeligente.dtos.LancamentoDto
 import br.com.cursokotlin.pontointeligente.enums.TipoEnum
 import br.com.cursokotlin.pontointeligente.response.Response
 import br.com.cursokotlin.pontointeligente.services.FuncionarioService
 import br.com.cursokotlin.pontointeligente.services.LancamentoService
-import com.kazale.pontointeligente.dtos.LancamentoDto
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.validation.Valid
+
 /*
 * @RequestBody -> Fazer a conversão automática da requisição http que é um objeto Json para uma classe java DTO
 * @Valid realiza a validações referente as notações que estão na classe LancamentoDTO
@@ -110,6 +111,11 @@ class LancamentoController(val lancamentoService: LancamentoService,
         return ResponseEntity.ok(response)
     }
 
+    /**
+     * @PreAuthorize (hasAnyRole('ADMIN'))
+     *  -> apenas poderão remover um lançamento, usuários com o perfil ADMIN
+     *  -> depende da notação @EnableGlobalMethodSecurity(prePostEnabled = true) em SecurityConfig
+     */
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     fun remover(@PathVariable("id") id: String): ResponseEntity<Response<String>> {

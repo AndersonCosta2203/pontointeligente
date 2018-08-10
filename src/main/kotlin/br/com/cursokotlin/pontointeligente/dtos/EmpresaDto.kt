@@ -1,4 +1,4 @@
-package com.kazale.pontointeligente.dtos
+package br.com.cursokotlin.pontointeligente.dtos
 /*
 * Classe do tipo data para processar aos documents
 * */

@@ -1,10 +1,10 @@
 package br.com.cursokotlin.pontointeligente.controllers
 
 import br.com.cursokotlin.pontointeligente.documents.Funcionario
+import br.com.cursokotlin.pontointeligente.dtos.FuncionarioDto
 import br.com.cursokotlin.pontointeligente.response.Response
 import br.com.cursokotlin.pontointeligente.services.FuncionarioService
 import br.com.cursokotlin.pontointeligente.utils.SenhaUtils
-import com.kazale.pontointeligente.dtos.FuncionarioDto
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindingResult
 import org.springframework.validation.ObjectError

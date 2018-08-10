@@ -1,9 +1,9 @@
 package br.com.cursokotlin.pontointeligente.controllers
 
 import br.com.cursokotlin.pontointeligente.documents.Empresa
+import br.com.cursokotlin.pontointeligente.dtos.EmpresaDto
 import br.com.cursokotlin.pontointeligente.response.Response
 import br.com.cursokotlin.pontointeligente.services.EmpresaService
-import com.kazale.pontointeligente.dtos.EmpresaDto
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

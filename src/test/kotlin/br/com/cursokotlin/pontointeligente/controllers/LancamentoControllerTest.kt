@@ -2,9 +2,14 @@ package br.com.cursokotlin.pontointeligente.controllers
 
 import br.com.cursokotlin.pontointeligente.documents.Funcionario
 import br.com.cursokotlin.pontointeligente.documents.Lancamento
+import br.com.cursokotlin.pontointeligente.dtos.LancamentoDto
+import br.com.cursokotlin.pontointeligente.enums.PerfilEnum
 import br.com.cursokotlin.pontointeligente.enums.TipoEnum
 import br.com.cursokotlin.pontointeligente.services.FuncionarioService
 import br.com.cursokotlin.pontointeligente.services.LancamentoService
+import br.com.cursokotlin.pontointeligente.utils.SenhaUtils
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.BDDMockito
@@ -19,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.text.SimpleDateFormat
 import java.util.*
 
 @RunWith(SpringRunner::class)
@@ -49,7 +55,7 @@ class LancamentoControllerTest {
     fun testCadastrarLancamento() {
         val lancamento: Lancamento = obterDadosLancamento()
 
-        BDDMockito.given<Funcionario>(funcionarioService?.buscarPorId(idFuncionario))
+        BDDMockito.given<Funcionario>(funcionarioService?.buscarPorId(idFuncionario)?.orElse(funcionario()))
                 .willReturn(funcionario())
         BDDMockito.given(lancamentoService?.persistir(obterDadosLancamento()))
                 .willReturn(lancamento)
@@ -69,7 +75,7 @@ class LancamentoControllerTest {
     @Throws(Exception::class)
     @WithMockUser
     fun testCadastrarLancamentoFuncionarioIdInvalido() {
-        BDDMockito.given<Funcionario>(funcionarioService?.buscarPorId(idFuncionario))
+        BDDMockito.given<Funcionario>(funcionarioService?.buscarPorId(idFuncionario)?.orElse(funcionario()))
                 .willReturn(null)
 
         mvc!!.perform(MockMvcRequestBuilders.post(urlBase)
@@ -82,11 +88,15 @@ class LancamentoControllerTest {
                 .andExpect(jsonPath("$.data").isEmpty())
     }
 
+    /**
+     * @WithMockUser -> Para informar que é necessário criar um usuário mock admin@admin.com com o perfil de ADMIN
+     *  para realizar o teste
+     */
     @Test
     @Throws(Exception::class)
     @WithMockUser(username = "admin@admin.com", roles = arrayOf("ADMIN"))
     fun testRemoverLancamento() {
-        BDDMockito.given<Lancamento>(lancamentoService?.buscarPorId(idLancamento))
+        BDDMockito.given<Lancamento>(lancamentoService?.buscarPorId(idLancamento)?.orElse(obterDadosLancamento()))
                 .willReturn(obterDadosLancamento())
 
         mvc!!.perform(MockMvcRequestBuilders.delete(urlBase + idLancamento)

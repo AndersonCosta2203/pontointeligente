@@ -56,7 +56,6 @@ class PontointeligenteApplication(val empresaRepository: EmpresaRepository,
         System.out.println("Admin ID: " + admin.id)
         System.out.println("Funcionario ID: " + funcionario.id)
         println("lancamento ID: "+ lancamento.id)
-
     }
 
 }

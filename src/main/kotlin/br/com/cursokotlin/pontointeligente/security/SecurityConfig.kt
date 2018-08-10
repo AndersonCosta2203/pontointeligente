@@ -12,6 +12,13 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 
+/**
+ * @Configuration -> carrega quando o Spring é inicializado
+ * @EnableWebSecurity -> Habilitando Web Security na aplicação
+ * @EnableGlobalMethodSecurity -> Para validar específico por perfil
+ * ? -> Após o parametro, informa que é opcional o parametro
+ * @Bean -> irá tornar o método inicializável, injeção de dependência
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -22,6 +29,15 @@ class SecurityConfig(
         auth?.authenticationProvider(authenticationProvider())
     }
 
+    /**
+     * authorizeRequests -> será utilizado autorização nas requisições
+     * anyRequest -> será autenticado todas as requisições
+     * authenticated -> garantir que todas as requisições estejam autenticadas
+     * httpBasic -> será utilizado autenticação básica
+     * sessionManagement -> será utilizada autenticação por sessão
+     * sessionCreationPolicy (SessionCreationPolicy.STATELESS) -> será criada uma sessão do tipo STATELESS que será válida durante a requisição
+     * csrf (disable) -> utilizado quando há multiplas requisições em um sessão, neste caso estará desabilitada
+     */
     override fun configure(http: HttpSecurity?) {
         http?.authorizeRequests()?.
                 anyRequest()?.

@@ -10,6 +10,7 @@ import java.util.*
 
 @Service
 class LancamentoServiceImpl(val lancamentoRepository: LancamentoRepository) : LancamentoService {
+
     override fun buscarPorFuncionarioId(funcionarioId: String, pageRequest: PageRequest): Page<Lancamento>  =
             lancamentoRepository.findByFuncionarioId(funcionarioId, pageRequest)
 
